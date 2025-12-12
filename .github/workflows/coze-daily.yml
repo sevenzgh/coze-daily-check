@@ -1,14 +1,14 @@
-name: 每日自动运行Coze查重工作流
+name: 每周一自动运行Coze查重工作流
 on:
   schedule:
-    - cron: '00 02 * * *'
-  workflow_dispatch:
+    - cron: '00 02 * * 1'  # 含义：每周一 UTC时间02:00 = 北京时间10:00
+  workflow_dispatch:  # 保留手动触发功能
 
 jobs:
   run-coze-workflow:
     runs-on: ubuntu-latest
     steps:
-      - name: 调用Coze工作流（用curl命令，无严格超时限制）
+      - name: 调用Coze工作流（用curl命令）
         run: |
           curl -X POST 'https://api.coze.cn/v1/workflow/stream_run' \
           -H "Authorization: Bearer cztei_q8rjuiE4JlGnyGETUPdd8xZj5aJpNK7QaSO2Pnv2FdrnKE1vNfblI60qliAti4NwB" \
@@ -20,4 +20,4 @@ jobs:
               "orgB_table_url": "https://ai.feishu.cn/base/DI70b7aaAavGqqsP5TTczFiJn8g?table=tbljqt1Mb2erfwMH&view=vewPyiygfT"
             }
           }' \
-          --max-time 600  # curl超时设为10分钟（600秒），足够覆盖任何情况
+          --max-time 600  # 10分钟超时
