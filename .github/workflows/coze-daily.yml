@@ -1,9 +1,7 @@
 name: 每日自动运行Coze查重工作流
-# 定时触发规则：UTC 02:00 = 北京时间10:00（可按需修改）
 on:
   schedule:
-    - cron: '00 02 * * *'
-  # 手动触发选项（方便测试）
+    - cron: '00 02 * * *'  # 北京时间10:00运行
   workflow_dispatch:
 
 jobs:
@@ -13,13 +11,15 @@ jobs:
       - name: 调用Coze工作流
         uses: fjogeleit/http-request-action@v1
         with:
-          # 对应Curl里的URL（注意是coze.cn不是coze.com）
+          # Coze工作流调用URL
           url: "https://api.coze.cn/v1/workflow/stream_run"
-          # 请求方法固定为POST
+          # 请求方法
           method: "POST"
-          # 对应Curl里的请求头（必须保留，Coze验证身份用）
-          headers: '{"Authorization": "Bearer pat_wkzi9FUbFjBvB6Gmw2wpr5tpt6DxdTUiVCEwkAQptogXTEzhgL8iruE3ifGX7u8q", "Content-Type": "application/json"}'
-          # 对应Curl里的参数（必须保留，指定要运行的工作流和表地址）
+          # 自动生成Authorization: Bearer 令牌（只需填令牌内容，无需加“Bearer ”前缀）
+          bearerToken: "pat_wkzi9FUbFjBvB6Gmw2wpr5tpt6DxdTUiVCEwkAQptogXTEzhgL8iruE3ifGX7u8q"
+          # 设置请求内容类型
+          contentType: "application/json"
+          # 工作流参数（保持原内容）
           data: '{
             "workflow_id": "7581688621460308004",
             "parameters": {
