@@ -11,7 +11,7 @@ jobs:
       - name: 调用Coze工作流（用curl命令）
         run: |
           curl -X POST 'https://api.coze.cn/v1/workflow/stream_run' \
-          -H "Authorization: Bearer cztei_q8rjuiE4JlGnyGETUPdd8xZj5aJpNK7QaSO2Pnv2FdrnKE1vNfblI60qliAti4NwB" \
+          -H "" \
           -H "Content-Type: application/json" \
           -d '{
             "workflow_id": "7581688621460308004",
